@@ -19,7 +19,7 @@ print(`found {#searchResults} results!`)
 ### SearchResult
 
 ```luau
-{
+type SearchResult = {
     serverId: string,
     serverPing: number,
     serverFps: number,
