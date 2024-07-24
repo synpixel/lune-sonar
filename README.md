@@ -7,8 +7,11 @@ Sonar is a tool built for [Lune](https://github.com/lune-org/lune) which attempt
 ```luau
 local sonar = require(...)
 
-local TARGET_USER_IDS = { 1 } -- @Roblox
 local PLACE_ID = 1818 -- Classic: Crossroads
+local TARGET_USER_IDS = {
+    1, -- @Roblox
+    156, -- @builderman
+}
 
 local searchResults = sonar.searchForUsers(TARGET_USER_IDS, PLACE_ID)
 print(`found {#searchResults} results!`)
