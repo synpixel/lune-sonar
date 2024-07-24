@@ -14,7 +14,7 @@ local searchResults = sonar.searchForUsers(TARGET_USER_IDS, PLACE_ID)
 print(`found {#searchResults} results!`)
 ```
 
-## API
+## API Reference
 
 ### SearchResult
 
