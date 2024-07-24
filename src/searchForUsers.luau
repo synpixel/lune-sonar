@@ -11,12 +11,12 @@ local QUERY_SORT_ORDER: "Asc" | "Desc" = "Asc"
 local QUERY_PAGE_SIZE = 100
 local QUERY_EXCLUDE_FULL_GAMES = false
 
-local FINGERPRINT_USER_REQUEST_ID = "sonar:user:%s"
-local FINGERPRINT_SERVER_REQUEST_ID = "sonar:server:%s"
-local FINGERPRINT_THUMBNAIL_TYPE = "AvatarHeadshot"
-local FINGERPRINT_THUMBNAIL_SIZE = "48x48"
-local FINGERPRINT_THUMBNAIL_FORMAT = "webp"
-local FINGERPRINT_THUMBNAIL_REQUEST_CHUNK_SIZE = 100
+local THUMBNAIL_USER_REQUEST_ID = "sonar:user:%s"
+local THUMBNAIL_SERVER_REQUEST_ID = "sonar:server:%s"
+local THUMBNAIL_TYPE = "AvatarHeadshot"
+local THUMBNAIL_SIZE = "48x48"
+local THUMBNAIL_FORMAT = "webp"
+local THUMBNAIL_REQUEST_CHUNK_SIZE = 100
 
 local DEFAULT_SEARCH_OPTIONS: types.SearchOptions = {
 	serverType = "public",
@@ -68,7 +68,7 @@ local function fetchThumbnails(
 ): { Thumbnail }
 	local thumbnails = {}
 
-	local thumbnailRequestChunks = splitList(thumbnailRequests, FINGERPRINT_THUMBNAIL_REQUEST_CHUNK_SIZE)
+	local thumbnailRequestChunks = splitList(thumbnailRequests, THUMBNAIL_REQUEST_CHUNK_SIZE)
 
 	for _, thumbnailRequestChunk in thumbnailRequestChunks do
 		local response = net.request({
@@ -99,11 +99,11 @@ local function collectFingerprints(userIds: { number }, searchOptions: types.Sea
 
 	for _, userId in userIds do
 		table.insert(thumbnailRequests, {
-			requestId = FINGERPRINT_USER_REQUEST_ID:format(userId),
+			requestId = THUMBNAIL_USER_REQUEST_ID:format(userId),
 			targetId = userId,
-			type = FINGERPRINT_THUMBNAIL_TYPE,
-			size = FINGERPRINT_THUMBNAIL_SIZE,
-			format = FINGERPRINT_THUMBNAIL_FORMAT,
+			type = THUMBNAIL_TYPE,
+			size = THUMBNAIL_SIZE,
+			format = THUMBNAIL_FORMAT,
 		})
 	end
 
@@ -129,11 +129,11 @@ local function searchServersForUsers(
 	for _, server in servers do
 		for _, playerToken in server.playerTokens do
 			table.insert(thumbnailRequests, {
-				requestId = FINGERPRINT_SERVER_REQUEST_ID:format(server.id),
+				requestId = THUMBNAIL_SERVER_REQUEST_ID:format(server.id),
 				token = playerToken,
-				type = FINGERPRINT_THUMBNAIL_TYPE,
-				size = FINGERPRINT_THUMBNAIL_SIZE,
-				format = FINGERPRINT_THUMBNAIL_FORMAT,
+				type = THUMBNAIL_TYPE,
+				size = THUMBNAIL_SIZE,
+				format = THUMBNAIL_FORMAT,
 			})
 		end
 	end
@@ -153,12 +153,12 @@ local function searchServersForUsers(
 		end
 
 		local searchResult = findInList(searchResults, function(targetResult)
-			return thumbnail.requestId == FINGERPRINT_SERVER_REQUEST_ID:format(targetResult.serverId)
+			return thumbnail.requestId == THUMBNAIL_SERVER_REQUEST_ID:format(targetResult.serverId)
 		end)
 
 		if searchResult == nil then
 			local server = findInList(servers, function(targetServer)
-				return thumbnail.requestId == FINGERPRINT_SERVER_REQUEST_ID:format(targetServer.id)
+				return thumbnail.requestId == THUMBNAIL_SERVER_REQUEST_ID:format(targetServer.id)
 			end)
 
 			if server == nil then
