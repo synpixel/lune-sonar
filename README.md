@@ -1,6 +1,8 @@
-# Sonar
-
-Sonar is a tool built for [Lune](https://github.com/lune-org/lune) which attempts to find users in a given Roblox place.
+<div align="center">
+	<img src="assets/logo.svg" width="128" fill="#FFFFF" alt="Logo"/>
+	<h1>Sonar</h1>
+	<p>A tool built for <a href="https://github.com/lune-org/lune/">Lune</a> which attempts to find users in a given Roblox place</p>
+</div>
 
 ## Quick Start
 
