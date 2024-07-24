@@ -81,6 +81,7 @@ local function fetchThumbnails(
 			},
 		})
 
+		-- sorry i just hated how `not` looked
 		if response.ok == false then
 			continue
 		end
