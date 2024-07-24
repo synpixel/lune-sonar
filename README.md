@@ -29,8 +29,12 @@ type SearchResult = {
 }
 ```
 
+A single search result containing server data, returned by `searchForUsers`.
+
 ### searchForUsers
 
 ```luau
 searchForUsers(targetUserIds: { number }, placeId: number) -> { SearchResult }
 ```
+
+Searches for users in a given place and returns the results.
