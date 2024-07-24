@@ -111,8 +111,7 @@ local function collectFingerprints(userIds: { number }, searchOptions: types.Sea
 	local fingerprints = {}
 
 	for _, thumbnail in thumbnails do
-		local fingerprint = createFingerprint(thumbnail.imageUrl)
-		fingerprint:attachUserId(thumbnail.targetId :: number)
+		local fingerprint = createFingerprint(thumbnail.imageUrl):attachUserId(thumbnail.targetId :: number)
 		table.insert(fingerprints, fingerprint)
 	end
 
