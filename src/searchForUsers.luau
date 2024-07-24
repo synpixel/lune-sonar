@@ -159,7 +159,11 @@ local function searchServersForUsers(
 		if searchResult == nil then
 			local server = findInList(servers, function(targetServer)
 				return thumbnail.requestId == FINGERPRINT_SERVER_REQUEST_ID:format(targetServer.id)
-			end) :: Server
+			end)
+
+			if server == nil then
+				continue
+			end
 
 			searchResult = {
 				serverId = server.id,
