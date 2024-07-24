@@ -205,6 +205,8 @@ local function searchForUsers(
 	partialSearchOptions: types.PartialSearchOptions?
 ): { types.SearchResult }
 	local searchOptions = patchSearchOptions(partialSearchOptions)
+	assert(searchOptions.roblosecurity ~= nil, "Sonar needs a valid .ROBLOSECURITY cookie to function")
+
 	local servers = fetchServers(placeId, searchOptions)
 	local fingerprints = collectFingerprints(targetUserIds, searchOptions)
 
