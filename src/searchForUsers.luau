@@ -7,9 +7,9 @@ local findInList = require("./utils/findInList")
 local splitList = require("./utils/splitList")
 local types = require("./types")
 
-local QUERY_SORT_ORDER: "Asc" | "Desc" = "Asc"
-local QUERY_PAGE_SIZE = 100
-local QUERY_EXCLUDE_FULL_GAMES = false
+local SERVER_SORT_ORDER: "Asc" | "Desc" = "Asc"
+local SERVER_PAGE_SIZE = 100
+local SERVER_EXCLUDE_FULL_GAMES = false
 
 local THUMBNAIL_USER_REQUEST_ID = "sonar:user:%s"
 local THUMBNAIL_SERVER_REQUEST_ID = "sonar:server:%s"
@@ -58,7 +58,7 @@ type Server = {
 
 local function fetchServers(placeId: number, searchOptions: types.SearchOptions): types.Pages<Server>
 	return createPages(
-		`https://games.roblox.com/v1/games/{placeId}/servers/{searchOptions.serverType}?sortOrder={QUERY_SORT_ORDER}&limit={QUERY_PAGE_SIZE}&excludeFullGames={QUERY_EXCLUDE_FULL_GAMES}`
+		`https://games.roblox.com/v1/games/{placeId}/servers/{searchOptions.serverType}?sortOrder={SERVER_SORT_ORDER}&limit={SERVER_PAGE_SIZE}&excludeFullGames={SERVER_EXCLUDE_FULL_GAMES}`
 	)
 end
 
