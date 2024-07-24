@@ -29,7 +29,7 @@ type SearchResult = {
 }
 ```
 
-A single search result containing server data, returned by `searchForUsers`.
+A search result containing server data, returned by `searchForUsers`.
 
 ### searchForUsers
 
