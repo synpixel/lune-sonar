@@ -1,6 +1,6 @@
 # Sonar
 
-Sonar is a tool built for [Lune](https://github.com/lune-org/lune) which attempts to find users in a given roblox place.
+Sonar is a tool built for [Lune](https://github.com/lune-org/lune) which attempts to find users in a given Roblox place.
 
 ## Quick Start
 
