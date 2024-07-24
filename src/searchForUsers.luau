@@ -16,7 +16,7 @@ local FINGERPRINT_SERVER_REQUEST_ID = "sonar:server:%s"
 local FINGERPRINT_THUMBNAIL_TYPE = "AvatarHeadshot"
 local FINGERPRINT_THUMBNAIL_SIZE = "48x48"
 local FINGERPRINT_THUMBNAIL_FORMAT = "webp"
-local FINGERPRINT_REQUEST_CHUNK_SIZE = 100
+local FINGERPRINT_THUMBNAIL_REQUEST_CHUNK_SIZE = 100
 
 local DEFAULT_SEARCH_OPTIONS: types.SearchOptions = {
 	serverType = "public",
@@ -68,7 +68,7 @@ local function fetchThumbnails(
 ): { Thumbnail }
 	local thumbnails = {}
 
-	local thumbnailRequestChunks = splitList(thumbnailRequests, FINGERPRINT_REQUEST_CHUNK_SIZE)
+	local thumbnailRequestChunks = splitList(thumbnailRequests, FINGERPRINT_THUMBNAIL_REQUEST_CHUNK_SIZE)
 
 	for _, thumbnailRequestChunk in thumbnailRequestChunks do
 		local response = net.request({
