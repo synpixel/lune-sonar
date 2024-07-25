@@ -21,7 +21,7 @@ local function compareFingerprints(fingerprint: types.Fingerprint, otherFingerpr
 	return thumbnailToken == otherThumbnailToken
 end
 
-local function extractUserId(fingerprint: types.Fingerprint): number?
+local function resolveUserId(fingerprint: types.Fingerprint): number?
 	if typeof(fingerprint) == "string" then
 		return nil
 	end
@@ -32,5 +32,5 @@ end
 return {
 	fingerprint = fingerprint,
 	compareFingerprints = compareFingerprints,
-	extractUserId = extractUserId,
+	resolveUserId = resolveUserId,
 }

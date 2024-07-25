@@ -179,7 +179,7 @@ local function searchServersForUsers(
 			table.insert(searchResults, searchResult)
 		end
 
-		local userId = identification.extractUserId(fingerprint)
+		local userId = identification.resolveUserId(fingerprint)
 		table.insert(searchResult.userIds, userId :: number)
 	end
 
