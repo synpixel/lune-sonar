@@ -21,6 +21,17 @@ print(`found {#searchResults} results!`)
 
 ## API Reference
 
+### PartialSearchOptions
+
+```luau
+type PartialSearchOptions = {
+    -- default: public
+    serverType: ("public" | "private")?,
+}
+```
+
+Options to configure the searching process, used by `searchForUsers`.
+
 ### SearchResult
 
 ```luau
@@ -34,21 +45,16 @@ type SearchResult = {
 }
 ```
 
-A search result containing server information, returned by `searchForUsers`.
-
-### PartialSearchOptions
-
-```luau
-type PartialSearchOptions = {
-    -- default: public
-    serverType: ("public" | "private")?,
-}
-```
+Search result containing server information, returned by `searchForUsers`.
 
 ### searchForUsers
 
 ```luau
-function searchForUsers(userIds: { number }, placeId: number, partialSearchOptions: PartialSearchOptions?) -> { SearchResult }
+function searchForUsers(
+    userIds: { number },
+    placeId: number,
+    partialSearchOptions: PartialSearchOptions?
+) -> { SearchResult }
 ```
 
 Searches for users in a given place and returns the results.
