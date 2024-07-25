@@ -1,6 +1,5 @@
 local serde = require("@lune/serde")
 local net = require("@lune/net")
-local roblox = require("@lune/roblox")
 local createPages = require("./createPages")
 local identification = require("./identification")
 local findInList = require("./utils/findInList")
@@ -20,7 +19,6 @@ local THUMBNAIL_REQUEST_CHUNK_SIZE = 100
 
 local DEFAULT_SEARCH_OPTIONS: types.SearchOptions = {
 	serverType = "public",
-	roblosecurity = roblox.getAuthCookie(true) :: string,
 }
 
 type ThumbnailRequest = {
@@ -77,10 +75,7 @@ local function fetchThumbnails(
 			method = "POST",
 			url = "https://thumbnails.roblox.com/v1/batch",
 			body = serde.encode("json", thumbnailRequestChunk),
-			headers = {
-				["Content-Type"] = "application/json",
-				Cookie = searchOptions.roblosecurity,
-			},
+			headers = { ["Content-Type"] = "application/json" },
 		})
 
 		-- sorry i just hated how `not` looked
@@ -208,7 +203,6 @@ local function searchForUsers(
 	partialSearchOptions: types.PartialSearchOptions?
 ): { types.SearchResult }
 	local searchOptions = patchSearchOptions(partialSearchOptions)
-	assert(searchOptions.roblosecurity ~= nil, "Sonar needs a valid .ROBLOSECURITY cookie to function")
 
 	local servers = fetchServers(placeId, searchOptions)
 	local fingerprints = collectFingerprints(userIds, searchOptions)

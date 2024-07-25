@@ -10,12 +10,10 @@ export type Fingerprint = string | { string | number }
 
 export type SearchOptions = {
 	serverType: "public" | "private",
-	roblosecurity: string,
 }
 
 export type PartialSearchOptions = {
 	serverType: ("public" | "private")?,
-	roblosecurity: string?,
 }
 
 export type SearchResult = {
