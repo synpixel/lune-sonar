@@ -144,21 +144,21 @@ local function searchServersForUsers(
 
 	for _, thumbnail in thumbnails do
 		local fingerprint = createFingerprint(thumbnail.imageUrl)
-		local matchingFingerprint = findInList(fingerprints, function(targetFingerprint)
+		local targetFingerprint = findInList(fingerprints, function(targetFingerprint)
 			return fingerprint:matches(targetFingerprint)
 		end)
 
-		if matchingFingerprint == nil then
+		if targetFingerprint == nil then
 			continue
 		end
 
-		local searchResult = findInList(searchResults, function(targetResult)
-			return thumbnail.requestId == THUMBNAIL_SERVER_REQUEST_ID:format(targetResult.serverId)
+		local searchResult = findInList(searchResults, function(searchResult)
+			return thumbnail.requestId == THUMBNAIL_SERVER_REQUEST_ID:format(searchResult.serverId)
 		end)
 
 		if searchResult == nil then
-			local server = findInList(servers, function(targetServer)
-				return thumbnail.requestId == THUMBNAIL_SERVER_REQUEST_ID:format(targetServer.id)
+			local server = findInList(servers, function(server)
+				return thumbnail.requestId == THUMBNAIL_SERVER_REQUEST_ID:format(server.id)
 			end)
 
 			if server == nil then
@@ -177,7 +177,7 @@ local function searchServersForUsers(
 			table.insert(searchResults, searchResult)
 		end
 
-		table.insert(searchResult.userIds, matchingFingerprint.userId :: number)
+		table.insert(searchResult.userIds, targetFingerprint.userId :: number)
 	end
 
 	return searchResults
