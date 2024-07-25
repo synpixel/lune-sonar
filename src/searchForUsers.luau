@@ -2,7 +2,7 @@ local serde = require("@lune/serde")
 local net = require("@lune/net")
 local roblox = require("@lune/roblox")
 local createPages = require("./createPages")
-local createFingerprint = require("./createFingerprint")
+local identification = require("./identification")
 local findInList = require("./utils/findInList")
 local splitList = require("./utils/splitList")
 local types = require("./types")
@@ -41,10 +41,12 @@ type Thumbnail = {
 	requestId: string,
 	token: string,
 	imageUrl: string,
+	state: "Completed" | "Blocked",
 } | {
 	requestId: string,
 	targetId: number,
 	imageUrl: string,
+	state: "Completed" | "Blocked",
 }
 
 type Server = {
@@ -112,7 +114,7 @@ local function collectFingerprints(userIds: { number }, searchOptions: types.Sea
 	local fingerprints = {}
 
 	for _, thumbnail in thumbnails do
-		local fingerprint = createFingerprint(thumbnail.imageUrl):attachUserId(thumbnail.targetId :: number)
+		local fingerprint = identification.fingerprint(thumbnail.imageUrl, thumbnail.targetId)
 		table.insert(fingerprints, fingerprint)
 	end
 
@@ -143,9 +145,13 @@ local function searchServersForUsers(
 	local searchResults = {}
 
 	for _, thumbnail in thumbnails do
-		local fingerprint = createFingerprint(thumbnail.imageUrl)
+		if thumbnail.state ~= "Completed" then
+			continue
+		end
+
+		local fingerprint = identification.fingerprint(thumbnail.imageUrl)
 		local targetFingerprint = findInList(fingerprints, function(targetFingerprint)
-			return fingerprint:matches(targetFingerprint)
+			return identification.compareFingerprints(fingerprint, targetFingerprint)
 		end)
 
 		if targetFingerprint == nil then
@@ -159,11 +165,7 @@ local function searchServersForUsers(
 		if searchResult == nil then
 			local server = findInList(servers, function(server)
 				return thumbnail.requestId == THUMBNAIL_SERVER_REQUEST_ID:format(server.id)
-			end)
-
-			if server == nil then
-				continue
-			end
+			end) :: Server
 
 			searchResult = {
 				serverId = server.id,
@@ -177,7 +179,8 @@ local function searchServersForUsers(
 			table.insert(searchResults, searchResult)
 		end
 
-		table.insert(searchResult.userIds, targetFingerprint.userId :: number)
+		local userId = identification.extractUserId(fingerprint)
+		table.insert(searchResult.userIds, userId :: number)
 	end
 
 	return searchResults

@@ -6,12 +6,7 @@ export type Pages<Entry> = {
 	isFirstPage: (Pages<Entry>) -> { Entry },
 }
 
-export type Fingerprint = {
-	thumbnailUrl: string,
-	userId: number?,
-	attachUserId: (Fingerprint, userId: number) -> Fingerprint,
-	matches: (Fingerprint, otherFingerprint: Fingerprint) -> boolean,
-}
+export type Fingerprint = string | { string | number }
 
 export type SearchOptions = {
 	serverType: "public" | "private",
