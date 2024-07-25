@@ -214,17 +214,17 @@ local function searchForUsers(
 	local fingerprints = collectFingerprints(userIds, searchOptions)
 
 	local searchResults = {}
-	local usersFoundCount = 0
+	local targetsFound = 0
 
 	while true do
 		local serverSearchResults = searchServersForUsers(servers:nextPage(), fingerprints, searchOptions)
 
 		for _, searchResult in serverSearchResults do
 			table.insert(searchResults, searchResult)
-			usersFoundCount += #searchResult.userIds
+			targetsFound += #searchResult.userIds
 		end
 
-		if usersFoundCount >= #userIds then
+		if targetsFound >= #userIds then
 			break
 		end
 
