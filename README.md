@@ -36,10 +36,19 @@ type SearchResult = {
 
 A search result containing server information, returned by `searchForUsers`.
 
+### PartialSearchOptions
+
+```luau
+type PartialSearchOptions = {
+    serverType: ("public" | "private")?,
+	roblosecurity: string?, -- .ROBLOSECURITY token override. Sonar will fetch the token from Roblox Studio by default.
+}
+```
+
 ### searchForUsers
 
 ```luau
-searchForUsers(targetUserIds: { number }, placeId: number) -> { SearchResult }
+function searchForUsers(userIds: { number }, placeId: number, partialSearchOptions: PartialSearchOptions?) -> { SearchResult }
 ```
 
 Searches for users in a given place and returns the results.
