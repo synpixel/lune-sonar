@@ -149,12 +149,12 @@ local function searchServersForUsers(
 			continue
 		end
 
-		local fingerprint = identification.fingerprint(thumbnail.imageUrl)
-		local targetFingerprint = findInList(fingerprints, function(targetFingerprint)
-			return identification.compareFingerprints(fingerprint, targetFingerprint)
+		local thumbnailFingerprint = identification.fingerprint(thumbnail.imageUrl)
+		local fingerprint = findInList(fingerprints, function(fingerprint)
+			return identification.compareFingerprints(thumbnailFingerprint, fingerprint)
 		end)
 
-		if targetFingerprint == nil then
+		if fingerprint == nil then
 			continue
 		end
 
