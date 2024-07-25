@@ -40,8 +40,8 @@ A search result containing server information, returned by `searchForUsers`.
 
 ```luau
 type PartialSearchOptions = {
+    -- the kind of server you want to query
     serverType: ("public" | "private")?,
-	roblosecurity: string?, -- .ROBLOSECURITY token override. Sonar will fetch the token from Roblox Studio by default.
 }
 ```
 
