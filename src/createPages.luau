@@ -1,5 +1,5 @@
 local serde = require("@lune/serde")
-local requestRoblox = require("./requestRoblox")
+local net = require("@lune/net")
 local types = require("./types")
 
 local function createPages<Entry>(baseRequestUrl: string): types.Pages<Entry>
@@ -16,7 +16,7 @@ local function createPages<Entry>(baseRequestUrl: string): types.Pages<Entry>
 	local pages = {}
 
 	function pages:toCursor(cursor)
-		local response = requestRoblox(`{baseRequestUrl}&cursor={cursor}`)
+		local response = net.request(`{baseRequestUrl}&cursor={cursor}`)
 		currentPage = serde.decode("json", response.body)
 		return currentPage.data
 	end
