@@ -222,6 +222,16 @@ local function searchForUsers(
 			table.insert(searchResults, searchResult)
 		end
 
+		local userIdCount = 0
+
+		for _, searchResult in searchResults do
+			userIdCount += #searchResult.userIds
+		end
+
+		if userIdCount >= #userIds then
+			break
+		end
+
 		if servers:isLastPage() then
 			break
 		end
