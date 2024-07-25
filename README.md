@@ -1,7 +1,7 @@
 <div align="center">
 	<img src="assets/logo.svg" width="128" alt="Logo"/>
 	<h1>Sonar</h1>
-	<p>A Luau library built for <a href="https://github.com/lune-org/lune/">Lune</a> which attempts to find users in a given Roblox place</p>
+	<p>A Luau library built for Lune which attempts to find users in a given Roblox place</p>
 </div>
 
 ## Quick Start
