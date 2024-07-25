@@ -15,8 +15,8 @@ local TARGET_USER_IDS = {
     156, -- @builderman
 }
 
-local searchResults = sonar.searchForUsers(TARGET_USER_IDS, PLACE_ID)
-print(`found {#searchResults} results!`)
+local results = sonar.searchForUsers(TARGET_USER_IDS, PLACE_ID)
+print(`found {#results} results!`)
 ```
 
 ## API Reference
