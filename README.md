@@ -40,7 +40,7 @@ A search result containing server information, returned by `searchForUsers`.
 
 ```luau
 type PartialSearchOptions = {
-    -- the kind of server you want to query
+    -- default: public
     serverType: ("public" | "private")?,
 }
 ```
