@@ -109,6 +109,10 @@ local function collectFingerprints(userIds: { number }, searchOptions: types.Sea
 	local fingerprints = {}
 
 	for _, thumbnail in thumbnails do
+		if thumbnail.state ~= "Completed" then
+			continue
+		end
+
 		local fingerprint = identification.fingerprint(thumbnail.imageUrl, thumbnail.targetId)
 		table.insert(fingerprints, fingerprint)
 	end
