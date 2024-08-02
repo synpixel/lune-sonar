@@ -62,13 +62,13 @@ local function fetchServers(placeId: number, searchOptions: types.SearchOptions)
 	)
 end
 
-local function fetchThumbnails(
-	thumbnailRequests: { ThumbnailRequest },
+local function bulkFetchThumbnails(
+	bulkThumbnailRequests: { ThumbnailRequest },
 	searchOptions: types.SearchOptions
 ): { Thumbnail }
 	local thumbnails = {}
 
-	local thumbnailRequestChunks = splitList(thumbnailRequests, THUMBNAIL_REQUEST_CHUNK_SIZE)
+	local thumbnailRequestChunks = splitList(bulkThumbnailRequests, THUMBNAIL_REQUEST_CHUNK_SIZE)
 
 	for _, thumbnailRequests in thumbnailRequestChunks do
 		local response = net.request({
@@ -104,7 +104,7 @@ local function collectFingerprints(userIds: { number }, searchOptions: types.Sea
 		})
 	end
 
-	local thumbnails = fetchThumbnails(thumbnailRequests, searchOptions)
+	local thumbnails = bulkFetchThumbnails(thumbnailRequests, searchOptions)
 
 	local fingerprints = {}
 
@@ -139,7 +139,7 @@ local function searchServersForUsers(
 		end
 	end
 
-	local thumbnails = fetchThumbnails(thumbnailRequests, searchOptions)
+	local thumbnails = bulkFetchThumbnails(thumbnailRequests, searchOptions)
 
 	local searchResults = {}
 
