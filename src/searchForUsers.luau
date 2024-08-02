@@ -70,11 +70,11 @@ local function fetchThumbnails(
 
 	local thumbnailRequestChunks = splitList(thumbnailRequests, THUMBNAIL_REQUEST_CHUNK_SIZE)
 
-	for _, thumbnailRequestChunk in thumbnailRequestChunks do
+	for _, thumbnailRequests in thumbnailRequestChunks do
 		local response = net.request({
 			method = "POST",
 			url = "https://thumbnails.roblox.com/v1/batch",
-			body = serde.encode("json", thumbnailRequestChunk),
+			body = serde.encode("json", thumbnailRequests),
 			headers = { ["Content-Type"] = "application/json" },
 		})
 
