@@ -4,6 +4,8 @@ local createPages = require("./createPages")
 local identification = require("./identification")
 local findInList = require("./utils/findInList")
 local splitList = require("./utils/splitList")
+local appendList = require("./utils/appendList")
+local deepCopy = require("./utils/deepCopy")
 local types = require("./types")
 
 local SERVERS_SORT_ORDER: "Asc" | "Desc" = "Asc"
@@ -120,6 +122,27 @@ local function collectFingerprints(userIds: { number }, searchOptions: types.Sea
 	return fingerprints
 end
 
+local function patchDuplicateSearchResults(searchResults: { types.SearchResult }): { types.SearchResult }
+	local patchedSearchResults = deepCopy(searchResults)
+
+	for index, searchResult in patchedSearchResults do
+		for otherIndex, otherSearchResult in patchedSearchResults do
+			if otherIndex == index then
+				continue
+			end
+
+			if otherSearchResult.serverId ~= searchResult.serverId then
+				continue
+			end
+
+			otherSearchResult.userIds = appendList(searchResult.userIds, unpack(otherSearchResult.userIds))
+			table.remove(patchedSearchResults, index)
+		end
+	end
+
+	return patchedSearchResults
+end
+
 local function searchServersForUsers(
 	servers: { Server },
 	fingerprints: { types.Fingerprint },
@@ -231,7 +254,7 @@ local function searchForUsers(
 		end
 	end
 
-	return searchResults
+	return patchDuplicateSearchResults(searchResults)
 end
 
 return searchForUsers
