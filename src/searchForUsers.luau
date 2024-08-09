@@ -12,8 +12,8 @@ local SERVERS_SORT_ORDER: "Asc" | "Desc" = "Asc"
 local SERVERS_PAGE_SIZE = 100
 local SERVERS_EXCLUDE_FULL_GAMES = false
 
-local THUMBNAIL_USER_REQUEST_ID = "sonar:user:%s"
-local THUMBNAIL_SERVER_REQUEST_ID = "sonar:server:%s"
+local THUMBNAIL_USER_REQUEST_ID = "sonar-user-%s"
+local THUMBNAIL_SERVER_REQUEST_ID = "sonar-server-%s"
 local THUMBNAIL_TYPE = "AvatarHeadshot"
 local THUMBNAIL_SIZE = "48x48"
 local THUMBNAIL_FORMAT = "webp"
