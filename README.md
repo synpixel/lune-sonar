@@ -8,7 +8,7 @@
 
 ## How it works
 
-The Roblox [Thumbnails API v1](https://thumbnails.roblox.com/docs/index.html) has a `/v1/batch` endpoint which "returns a list of thumbnails with varying types and sizes".
+The [Thumbnails API](https://thumbnails.roblox.com/docs/index.html) has a `/v1/batch` endpoint which "returns a list of thumbnails with varying types and sizes".
 
 Here's how a standard request body looks like:
 
@@ -45,7 +45,7 @@ Now we've got a valid image URL for `@Roblox`'s profile picture. But this is not
 
 If you take a quick look at `imageUrl`, you can notice a hexadecimal string in the middle: `310966282D3529E36976BF6B07B1DC90`. We'll call these **"thumbnail tokens"**.
 
-Another place where user thumbnails are used is in the server list for Roblox places. You can work with these using the [Games API v1](https://games.roblox.com/docs/index.html?urls.primaryName=Games%20Api%20v1), specifically the `/v1/games/{placeId}/servers/{serverType}` endpoint.
+Another place where user thumbnails are used is in the server list for Roblox places. You can work with these using the [Games API](https://games.roblox.com/docs/index.html?urls.primaryName=Games%20Api%20v1), specifically the `/v1/games/{placeId}/servers/{serverType}` endpoint.
 
 This endpoint allows you to iterate through the servers of any place with its ID. Let's take a look at one of the entries in a response.
 
