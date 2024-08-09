@@ -4,8 +4,8 @@ local createPages = require("./createPages")
 local identification = require("./identification")
 local findInList = require("./utils/findInList")
 local splitList = require("./utils/splitList")
-local appendList = require("./utils/appendList")
-local deepCopy = require("./utils/deepCopy")
+local mergeLists = require("./utils/mergeLists")
+local deepClone = require("./utils/deepClone")
 local types = require("./types")
 
 local SERVERS_SORT_ORDER: "Asc" | "Desc" = "Asc"
@@ -123,7 +123,7 @@ local function collectFingerprints(userIds: { number }, searchOptions: types.Sea
 end
 
 local function patchDuplicateSearchResults(searchResults: { types.SearchResult }): { types.SearchResult }
-	local patchedSearchResults = deepCopy(searchResults)
+	local patchedSearchResults = deepClone(searchResults)
 
 	for index, searchResult in patchedSearchResults do
 		for otherIndex, otherSearchResult in patchedSearchResults do
@@ -135,7 +135,7 @@ local function patchDuplicateSearchResults(searchResults: { types.SearchResult }
 				continue
 			end
 
-			otherSearchResult.userIds = appendList(searchResult.userIds, unpack(otherSearchResult.userIds))
+			otherSearchResult.userIds = mergeLists(searchResult.userIds, otherSearchResult.userIds)
 			table.remove(patchedSearchResults, index)
 		end
 	end
