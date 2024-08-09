@@ -77,7 +77,7 @@ It contains a `playerTokens` field. You can pass one of those to the Thumbnails 
 ]
 ```
 
-This will gave us a response similar to the previous one, which means we can extract a thumbnail token from the response here as well.
+This should give us a response similar to the previous one, which means we can extract a thumbnail token from the response here as well.
 
 The trick with these thumbnail tokens is that **they're cached based on the user, size, format, etc...**, this means that as long as we pass the same parameters _(size, format, etc...)_ to both thumbnail requests, we _will_ get the same `imageUrl`, no matter if we used a user ID or a `playerToken`.
 
