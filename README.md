@@ -85,7 +85,7 @@ The trick with these thumbnail tokens is that **they're cached based on the user
 
 The library's lookup function takes a list of user IDs along with a place ID. It starts by collecting thumbnails from the user IDs and turning them into fingerprints. It proceeds by iterating through the place's servers all the while collecting thumbnails from `playerTokens` and turning them into fingerprints.
 
-It can then compare fingerprints made from the `playerToken`s with the fingerprints it made from the list of user IDs, and keep track of the results.
+It can then compare fingerprints made from the `playerToken`s with the fingerprints made from the list of user IDs, and keep track of the results.
 
 ## API
 
