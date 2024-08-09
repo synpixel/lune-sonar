@@ -10,7 +10,7 @@
 
 The [Thumbnails API](https://thumbnails.roblox.com/docs/index.html) has a `/v1/batch` endpoint which "returns a list of thumbnails with varying types and sizes".
 
-Here's how a standard request body looks like:
+Let's make a quick request.
 
 ```json
 [
@@ -24,7 +24,7 @@ Here's how a standard request body looks like:
 ]
 ```
 
-This should give us back a headshot of `@Roblox`'s avatar, because `targetId` in this case is set to a user ID.
+This should give us back a headshot of `@Roblox`'s avatar, because `targetId` in this case is set to `@Roblox`'s ID.
 
 And it does!
 
@@ -41,7 +41,7 @@ And it does!
 }
 ```
 
-Now we've got a valid image URL for `@Roblox`'s profile picture. But this is not the only thing you can do with this.
+Now we've got a valid image URL for `@Roblox`'s headshot. But this is not the only thing you can do with this.
 
 If you take a quick look at `imageUrl`, you can notice a hexadecimal string in the middle: `310966282D3529E36976BF6B07B1DC90`. We'll call these **"thumbnail tokens"**.
 
