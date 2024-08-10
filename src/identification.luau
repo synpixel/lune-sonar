@@ -1,10 +1,11 @@
 local types = require("./types")
+type Fingerprint = types.Fingerprint
 
 local function extractThumbnailToken(thumbnailUrl: string): string?
 	return thumbnailUrl:match("%d+DAY%-%w+%-(%x+)%-%w+")
 end
 
-local function fingerprint(thumbnailUrl: string, userId: number?): types.Fingerprint
+local function fingerprint(thumbnailUrl: string, userId: number?): Fingerprint
 	local thumbnailToken = extractThumbnailToken(thumbnailUrl)
 	assert(thumbnailToken ~= nil, "attempt to fingerprint invalid thumbnail url")
 
@@ -15,7 +16,7 @@ local function fingerprint(thumbnailUrl: string, userId: number?): types.Fingerp
 	return { thumbnailToken, userId }
 end
 
-local function resolveThumbnailToken(fingerprint: types.Fingerprint): string
+local function resolveThumbnailToken(fingerprint: Fingerprint): string
 	if typeof(fingerprint) == "string" then
 		return fingerprint
 	end
@@ -23,7 +24,7 @@ local function resolveThumbnailToken(fingerprint: types.Fingerprint): string
 	return fingerprint[1] :: any
 end
 
-local function resolveUserId(fingerprint: types.Fingerprint): number?
+local function resolveUserId(fingerprint: Fingerprint): number?
 	if typeof(fingerprint) == "string" then
 		return nil
 	end
@@ -31,7 +32,7 @@ local function resolveUserId(fingerprint: types.Fingerprint): number?
 	return fingerprint[2] :: any
 end
 
-local function compare(fingerprint: types.Fingerprint, otherFingerprint: types.Fingerprint): boolean
+local function compare(fingerprint: Fingerprint, otherFingerprint: Fingerprint): boolean
 	return resolveThumbnailToken(fingerprint) == resolveThumbnailToken(otherFingerprint)
 end
 

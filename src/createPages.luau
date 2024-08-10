@@ -2,7 +2,9 @@ local serde = require("@lune/serde")
 local net = require("@lune/net")
 local types = require("./types")
 
-local function createPages<Entry>(baseRequestUrl: string): types.Pages<Entry>
+type Pages<Entry> = types.Pages<Entry>
+
+local function createPages<Entry>(baseRequestUrl: string): Pages<Entry>
 	local currentPage: {
 		previousPageCursor: string?,
 		nextPageCursor: string?,

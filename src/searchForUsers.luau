@@ -8,6 +8,12 @@ local mergeLists = require("./utils/mergeLists")
 local deepClone = require("./utils/deepClone")
 local types = require("./types")
 
+type Pages<Entry> = types.Pages<Entry>
+type Fingerprint = types.Fingerprint
+type SearchOptions = types.SearchOptions
+type PartialSearchOptions = types.PartialSearchOptions
+type SearchResult = types.SearchResult
+
 local SERVERS_SORT_ORDER: "Asc" | "Desc" = "Asc"
 local SERVERS_PAGE_SIZE = 100
 local SERVERS_EXCLUDE_FULL_GAMES = false
@@ -19,7 +25,7 @@ local THUMBNAIL_SIZE = "48x48"
 local THUMBNAIL_FORMAT = "webp"
 local THUMBNAIL_REQUEST_CHUNK_SIZE = 100
 
-local DEFAULT_SEARCH_OPTIONS: types.SearchOptions = {
+local DEFAULT_SEARCH_OPTIONS: SearchOptions = {
 	serverType = "public",
 }
 
@@ -58,7 +64,7 @@ type Server = {
 	playerTokens: { string },
 }
 
-local function fetchServers(placeId: number, searchOptions: types.SearchOptions): types.Pages<Server>
+local function fetchServers(placeId: number, searchOptions: SearchOptions): Pages<Server>
 	return createPages(
 		`https://games.roblox.com/v1/games/{placeId}/servers/{searchOptions.serverType}?sortOrder={SERVERS_SORT_ORDER}&limit={SERVERS_PAGE_SIZE}&excludeFullGames={SERVERS_EXCLUDE_FULL_GAMES}`
 	)
@@ -66,7 +72,7 @@ end
 
 local function bulkFetchThumbnails(
 	bulkThumbnailRequests: { ThumbnailRequest },
-	searchOptions: types.SearchOptions
+	searchOptions: SearchOptions
 ): { Thumbnail }
 	local thumbnails = {}
 
@@ -93,7 +99,7 @@ local function bulkFetchThumbnails(
 	return thumbnails
 end
 
-local function collectFingerprints(userIds: { number }, searchOptions: types.SearchOptions): { types.Fingerprint }
+local function collectFingerprints(userIds: { number }, searchOptions: SearchOptions): { Fingerprint }
 	local thumbnailRequests = {}
 
 	for _, userId in userIds do
@@ -122,7 +128,7 @@ local function collectFingerprints(userIds: { number }, searchOptions: types.Sea
 	return fingerprints
 end
 
-local function patchDuplicateSearchResults(searchResults: { types.SearchResult }): { types.SearchResult }
+local function patchDuplicateSearchResults(searchResults: { SearchResult }): { SearchResult }
 	local patchedSearchResults = deepClone(searchResults)
 
 	for index, searchResult in patchedSearchResults do
@@ -145,9 +151,9 @@ end
 
 local function searchServersForUsers(
 	servers: { Server },
-	fingerprints: { types.Fingerprint },
-	searchOptions: types.SearchOptions
-): { types.SearchResult }
+	fingerprints: { Fingerprint },
+	searchOptions: SearchOptions
+): { SearchResult }
 	local thumbnailRequests = {}
 
 	for _, server in servers do
@@ -208,7 +214,7 @@ local function searchServersForUsers(
 	return searchResults
 end
 
-local function patchSearchOptions(partialSearchOptions: types.PartialSearchOptions?): types.SearchOptions
+local function patchSearchOptions(partialSearchOptions: PartialSearchOptions?): SearchOptions
 	if partialSearchOptions == nil then
 		return table.clone(DEFAULT_SEARCH_OPTIONS)
 	end
@@ -227,8 +233,8 @@ end
 local function searchForUsers(
 	userIds: { number },
 	placeId: number,
-	partialSearchOptions: types.PartialSearchOptions?
-): { types.SearchResult }
+	partialSearchOptions: PartialSearchOptions?
+): { SearchResult }
 	local searchOptions = patchSearchOptions(partialSearchOptions)
 
 	local servers = fetchServers(placeId, searchOptions)
