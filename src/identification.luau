@@ -15,10 +15,12 @@ local function fingerprint(thumbnailUrl: string, userId: number?): types.Fingerp
 	return { thumbnailToken, userId }
 end
 
-local function compareFingerprints(fingerprint: types.Fingerprint, otherFingerprint: types.Fingerprint): boolean
-	local thumbnailToken = if typeof(fingerprint) == "string" then fingerprint else fingerprint[1]
-	local otherThumbnailToken = if typeof(otherFingerprint) == "string" then otherFingerprint else otherFingerprint[1]
-	return thumbnailToken == otherThumbnailToken
+local function resolveThumbnailToken(fingerprint: types.Fingerprint): string
+	if typeof(fingerprint) == "string" then
+		return fingerprint
+	end
+
+	return fingerprint[1] :: any
 end
 
 local function resolveUserId(fingerprint: types.Fingerprint): number?
@@ -29,8 +31,13 @@ local function resolveUserId(fingerprint: types.Fingerprint): number?
 	return fingerprint[2] :: any
 end
 
+local function compare(fingerprint: types.Fingerprint, otherFingerprint: types.Fingerprint): boolean
+	return resolveThumbnailToken(fingerprint) == resolveThumbnailToken(otherFingerprint)
+end
+
 return {
 	fingerprint = fingerprint,
-	compareFingerprints = compareFingerprints,
+	resolveThumbnailToken = resolveThumbnailToken,
 	resolveUserId = resolveUserId,
+	compare = compare,
 }
