@@ -179,7 +179,7 @@ local function searchServersForUsers(
 
 		local thumbnailFingerprint = identification.fingerprint(thumbnail.imageUrl)
 		local fingerprint = findInList(fingerprints, function(fingerprint)
-			return identification.compare(thumbnailFingerprint, fingerprint)
+			return identification.compare(fingerprint, thumbnailFingerprint)
 		end)
 
 		if fingerprint == nil then
@@ -187,12 +187,12 @@ local function searchServersForUsers(
 		end
 
 		local searchResult = findInList(searchResults, function(searchResult)
-			return thumbnail.requestId == THUMBNAIL_SERVER_REQUEST_ID:format(searchResult.serverId)
+			return THUMBNAIL_SERVER_REQUEST_ID:format(searchResult.serverId) == thumbnail.requestId
 		end)
 
 		if searchResult == nil then
 			local server = findInList(servers, function(server)
-				return thumbnail.requestId == THUMBNAIL_SERVER_REQUEST_ID:format(server.id)
+				return THUMBNAIL_SERVER_REQUEST_ID:format(server.id) == thumbnail.requestId
 			end) :: Server
 
 			searchResult = {
