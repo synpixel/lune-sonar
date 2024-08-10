@@ -24,7 +24,7 @@ Let's make a quick request.
 ]
 ```
 
-This should give us back a headshot of `@Roblox`'s avatar, because `targetId` in this case is set to `@Roblox`'s ID.
+This should give us back a headshot of `@Roblox`'s avatar, because `targetId` in this case is set to `@Roblox`'s user ID.
 
 And it does!
 
@@ -47,7 +47,7 @@ If you take a quick look at `imageUrl`, you can notice a hexadecimal string in t
 
 Another place where user thumbnails are used is in the server list for Roblox places. You can work with these using the [Games API](https://games.roblox.com/docs/index.html?urls.primaryName=Games%20Api%20v1), specifically the `/v1/games/{placeId}/servers/{serverType}` endpoint.
 
-This endpoint allows you to iterate through the servers of any place with its ID. Let's take a look at one of the entries in a response.
+This endpoint allows us to iterate through the servers of any place with its ID. Let's take a look at one of the entries in a response.
 
 ```json
 {
@@ -77,13 +77,13 @@ It contains a `playerTokens` field. You can pass one of those to the Thumbnails 
 ]
 ```
 
-This should give us a response similar to the previous one, which means we can extract a thumbnail token from the response here as well.
+This should give us a response similar to the last one, which means we can extract a thumbnail token from the response here as well.
 
-The trick with these thumbnail tokens is that **they're cached based on the user, size, format, etc...**, this means that as long as we pass the same parameters _(size, format, etc...)_ to both thumbnail requests, we _will_ get the same `imageUrl` for a specific user, no matter if we used a user ID or a `playerToken`.
+The trick with these thumbnail tokens is that **they're cached based on the user, size, format, etc...** for **30 days**, this means that as long as we pass the same parameters _(size, format, etc...)_ to both thumbnail requests, we _will_ get the same `imageUrl` for a specific user, regardless of whether we used a user ID or a `playerToken`.
 
 `lune-sonar` abstracts these thumbnail tokens behind an interface called a **"fingerprint"**. You can associate user IDs to these fingerprints.
 
-The library's lookup function takes a list of user IDs along with a place ID. It starts by collecting thumbnails from the user IDs and turning them into fingerprints. It proceeds by iterating through the place's servers all the while collecting thumbnails from `playerTokens` and turning them into fingerprints.
+The library's lookup function takes a list of user IDs along with a place ID. It starts by collecting thumbnails from the user IDs and turning them into fingerprints. It proceeds by iterating through the place's servers all the while collecting thumbnails from `playerTokens` and turning them into fingerprints aswell.
 
 It can then compare fingerprints made from the `playerToken`s with the fingerprints made from the list of user IDs, and keep track of the results.
 
