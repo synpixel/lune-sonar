@@ -16,7 +16,7 @@ local function fingerprint(thumbnailUrl: string, userId: number?): Fingerprint
 	return { thumbnailToken, userId }
 end
 
-local function resolveThumbnailToken(fingerprint: Fingerprint): string
+local function readThumbnailToken(fingerprint: Fingerprint): string
 	if typeof(fingerprint) == "string" then
 		return fingerprint
 	end
@@ -24,7 +24,7 @@ local function resolveThumbnailToken(fingerprint: Fingerprint): string
 	return fingerprint[1] :: any
 end
 
-local function resolveUserId(fingerprint: Fingerprint): number?
+local function readUserId(fingerprint: Fingerprint): number?
 	if typeof(fingerprint) == "string" then
 		return nil
 	end
@@ -33,12 +33,12 @@ local function resolveUserId(fingerprint: Fingerprint): number?
 end
 
 local function compare(fingerprint: Fingerprint, otherFingerprint: Fingerprint): boolean
-	return resolveThumbnailToken(fingerprint) == resolveThumbnailToken(otherFingerprint)
+	return readThumbnailToken(fingerprint) == readThumbnailToken(otherFingerprint)
 end
 
 return {
 	fingerprint = fingerprint,
-	resolveThumbnailToken = resolveThumbnailToken,
-	resolveUserId = resolveUserId,
+	readThumbnailToken = readThumbnailToken,
+	readUserId = readUserId,
 	compare = compare,
 }
