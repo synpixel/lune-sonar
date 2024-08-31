@@ -15,7 +15,7 @@ local function createPages<Entry>(baseRequestUrl: string): Pages<Entry>
 		data = {},
 	}
 
-	local pages = {}
+	local pages = {} :: Pages<Entry>
 
 	function pages:toCursor(cursor)
 		local response = requestWithRatelimit(`{baseRequestUrl}&cursor={cursor}`)

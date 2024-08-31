@@ -121,7 +121,9 @@ local function collectFingerprints(userIds: { number }, searchOptions: SearchOpt
 			continue
 		end
 
-		local fingerprint = identification.fingerprint(thumbnail.imageUrl, thumbnail.targetId)
+		-- luau gets angry :(
+		local targetId = (thumbnail :: any).targetId :: number
+		local fingerprint = identification.fingerprint(thumbnail.imageUrl, targetId)
 		table.insert(fingerprints, fingerprint)
 	end
 
@@ -170,7 +172,7 @@ local function searchServersForUsers(
 
 	local thumbnails = bulkFetchThumbnails(thumbnailRequests, searchOptions)
 
-	local searchResults = {}
+	local searchResults = {} :: { SearchResult }
 
 	for _, thumbnail in thumbnails do
 		if thumbnail.state ~= "Completed" then
@@ -188,7 +190,7 @@ local function searchServersForUsers(
 
 		local searchResult = findInList(searchResults, function(searchResult)
 			return THUMBNAIL_SERVER_REQUEST_ID:format(searchResult.serverId) == thumbnail.requestId
-		end)
+		end) :: SearchResult
 
 		if searchResult == nil then
 			local server = findInList(servers, function(server)
@@ -227,7 +229,7 @@ local function patchSearchOptions(partialSearchOptions: PartialSearchOptions?): 
 		end
 	end
 
-	return searchOptions
+	return searchOptions :: SearchOptions
 end
 
 local function searchForUsers(

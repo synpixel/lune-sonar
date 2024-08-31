@@ -1,9 +1,9 @@
 export type Pages<Entry> = {
-	toCursor: (Pages<Entry>, cursor: string) -> { Entry },
+	toCursor: (Pages<Entry>, cursor: string?) -> { Entry },
 	nextPage: (Pages<Entry>) -> { Entry },
 	previousPage: (Pages<Entry>) -> { Entry },
-	isLastPage: (Pages<Entry>) -> { Entry },
-	isFirstPage: (Pages<Entry>) -> { Entry },
+	isLastPage: (Pages<Entry>) -> boolean,
+	isFirstPage: (Pages<Entry>) -> boolean,
 }
 
 export type Fingerprint = string | { string | number }

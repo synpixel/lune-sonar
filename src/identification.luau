@@ -13,7 +13,7 @@ local function fingerprint(thumbnailUrl: string, userId: number?): Fingerprint
 		return thumbnailToken
 	end
 
-	return { thumbnailToken, userId }
+	return { thumbnailToken, userId :: any }
 end
 
 local function readThumbnailToken(fingerprint: Fingerprint): string
