@@ -14,21 +14,6 @@ type SearchOptions = types.SearchOptions
 type PartialSearchOptions = types.PartialSearchOptions
 type SearchResult = types.SearchResult
 
-local SERVERS_SORT_ORDER: "Asc" | "Desc" = "Asc"
-local SERVERS_PAGE_SIZE = 100
-local SERVERS_EXCLUDE_FULL_GAMES = false
-
-local THUMBNAIL_USER_REQUEST_ID = "sonar::user:%s"
-local THUMBNAIL_SERVER_REQUEST_ID = "sonar::server:%s"
-local THUMBNAIL_TYPE = "AvatarHeadshot"
-local THUMBNAIL_SIZE = "48x48"
-local THUMBNAIL_FORMAT = "webp"
-local THUMBNAIL_REQUEST_CHUNK_SIZE = 100
-
-local DEFAULT_SEARCH_OPTIONS: SearchOptions = {
-	serverType = "public",
-}
-
 type ThumbnailRequest = {
 	requestId: string,
 	token: string,
@@ -62,6 +47,21 @@ type Server = {
 	playing: number,
 	maxPlayers: number,
 	playerTokens: { string },
+}
+
+local SERVERS_SORT_ORDER: "Asc" | "Desc" = "Asc"
+local SERVERS_PAGE_SIZE = 100
+local SERVERS_EXCLUDE_FULL_GAMES = false
+
+local THUMBNAIL_USER_REQUEST_ID = "sonar::user:%s"
+local THUMBNAIL_SERVER_REQUEST_ID = "sonar::server:%s"
+local THUMBNAIL_TYPE = "AvatarHeadshot"
+local THUMBNAIL_SIZE = "48x48"
+local THUMBNAIL_FORMAT = "webp"
+local THUMBNAIL_REQUEST_CHUNK_SIZE = 100
+
+local DEFAULT_SEARCH_OPTIONS: SearchOptions = {
+	serverType = "public",
 }
 
 local function fetchServers(placeId: number, searchOptions: SearchOptions): Pages<Server>
