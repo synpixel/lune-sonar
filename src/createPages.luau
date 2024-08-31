@@ -1,5 +1,5 @@
 local serde = require("@lune/serde")
-local net = require("@lune/net")
+local requestWithRatelimit = require("./utils/requestWithRatelimit")
 local types = require("./types")
 
 type Pages<Entry> = types.Pages<Entry>
@@ -18,7 +18,7 @@ local function createPages<Entry>(baseRequestUrl: string): Pages<Entry>
 	local pages = {}
 
 	function pages:toCursor(cursor)
-		local response = net.request(`{baseRequestUrl}&cursor={cursor}`)
+		local response = requestWithRatelimit(`{baseRequestUrl}&cursor={cursor}`)
 		currentPage = serde.decode("json", response.body)
 		return currentPage.data
 	end
