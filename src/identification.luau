@@ -1,4 +1,5 @@
 local types = require("./types")
+
 type Fingerprint = types.Fingerprint
 
 local function extractThumbnailToken(thumbnailUrl: string): string?
