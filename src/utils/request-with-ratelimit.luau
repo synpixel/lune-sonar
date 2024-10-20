@@ -9,6 +9,7 @@ local function requestWithRatelimit(config: net.FetchParams | string): net.Fetch
 	if response.statusCode == 429 then
 		local retryAfter = tonumber(response.headers["retry-after"]) or DEFAULT_RETRY_AFTER
 		task.wait(retryAfter)
+
 		return requestWithRatelimit(config)
 	end
 

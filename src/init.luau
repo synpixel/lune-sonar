@@ -1,10 +1,5 @@
-local searchForUsers = require("./searchForUsers")
-local types = require("./types")
+local search = require("./search")
 
-export type SearchOptions = types.SearchOptions
-export type PartialSearchOptions = types.PartialSearchOptions
-export type SearchResult = types.SearchResult
+export type Report = search.Report
 
-return {
-	searchForUsers = searchForUsers,
-}
+return { search = search }
